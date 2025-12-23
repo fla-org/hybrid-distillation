@@ -1,0 +1,26 @@
+data:
+  cache_dir: 'data_cache/chunked_context512'
+
+teacher_model:
+  name: 'fla-hub/Qwen2.5-3B-Instruct'
+
+student_model:
+  name: 'gdn_v4'
+  keep_full_attention_layers: []
+
+train:
+  target_tokens: 100_000_000
+  batch_size: 96
+  micro_batch_size: 12
+  train_seq_len: 512
+  lr_scheduler_type: cosine
+  lr: 0.001 # all but attention layers
+  lr_attn: 0.001 # attention layers
+  max_grad_norm: 1.0
+  output_dir: 'checkpoints/qwen2_3b_gdn_v4_hybrid_0_125_uniform/stage1'
+  max_length: 512
+  # tokenizer
+  add_eos_token: False
+  resume_from_checkpoint: None
+
+stage: 1

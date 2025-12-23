@@ -1,0 +1,31 @@
+data:
+  cache_dir: data_cache/dclm-10b-llama-tokenizer/chunked_context4096
+teacher_model:
+  name: fla-hub/Llama-3.2-3B-Instruct
+student_model:
+  name: gdn_v4
+  keep_full_attention_layers:
+  - 0
+  - 16
+  - 11
+  - 14
+  - 7
+  - 5
+  - 9
+  - 13
+  - 2
+train:
+  target_tokens: 600000000
+  batch_size: 32
+  micro_batch_size: 2
+  train_seq_len: 4096
+  lr_scheduler_type: constant
+  lr: 7.0e-06
+  lr_attn: 0.0001
+  max_grad_norm: 1.0
+  output_dir: checkpoints/llama3_3b_gdn_v4_hybrid_0_33_ar_selection/stage2
+  student_init_ckpt: checkpoints/llama3_3b_gdn_v4_hybrid_0_125_uniform/stage1/converted-hf
+  max_length: 4096
+  add_eos_token: false
+  resume_from_checkpoint: None
+stage: 2

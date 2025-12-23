@@ -1,0 +1,31 @@
+data:
+  # name: "robbiegwaldd/dclm-10B"
+  # path: "robbiegwaldd/dclm-10B"
+  cache_dir: 'data_cache/chunked_context4096'
+
+teacher_model:
+  name: 'converted/Qwen2.5-1.5B-Instruct'
+
+student_model:
+  name: 'gdn_v4'
+  keep_full_attention_layers: [0, 16, 20, 11, 13, 22, 12, 27, 15]
+
+train:
+  target_tokens: 600_000_000
+  # target_tokens: 100_000
+  batch_size: 32
+  micro_batch_size: 4
+  train_seq_len: 4096
+  lr_scheduler_type: constant
+  lr: 0.000007 # all but attention layers
+  lr_attn: 0.0001 # attention layers
+
+  max_grad_norm: 1.0
+  output_dir: 'checkpoints/qwen2_1_5b_gdn_v4_hybrid_0_33_ar_multihop/stage2'
+  student_init_ckpt: 'checkpoints/qwen2_1_5b_gdn_v4_hybrid_0_25_uniform/stage1/converted-hf'
+  max_length: 4096
+  # tokenizer
+  add_eos_token: False
+  resume_from_checkpoint: None
+
+stage: 2

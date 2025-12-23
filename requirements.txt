@@ -1,0 +1,9 @@
+torch==2.6.0
+triton==3.2.0
+transformers==4.53.3
+datasets
+peft
+evaluate
+omegaconf
+deepspeed==0.15.4
+flash-linear-attention
